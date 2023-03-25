@@ -4,16 +4,21 @@
 #include <string>
 
 class Type {
-private:
-    std::string name;
-    Type(const std::string& n);
 public:
+    enum class ElementType {
+        NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE, FIGHTING, POISON,
+        GROUND, FLYING, PSYCHIC, BUG, ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY
+    };
+    Type(ElementType elementType);
+    bool isEffectiveAgainst(const Type& other) const;
+    bool isResistantTo(const Type& other) const;
+    bool isWeakTo(const Type& other) const;
     std::string getName() const;
-    static const Type normal;
-    static const Type fire;
-    static const Type water;
-    static const Type grass;
-    static const Type electro;
+
+private:
+    ElementType _elementType;
+    std::string _name;
 };
+
 
 #endif // TYPE_H

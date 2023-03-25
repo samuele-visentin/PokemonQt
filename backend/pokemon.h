@@ -3,40 +3,46 @@
 
 #include <string>
 #include "list.h"
-#include "pokemon_status.h"
+#include "status.h"
 #include "type.h"
 
 class Pokemon {
-protected:
+private:
     std::string _name;
-    List<int> move;
-    unsigned int _level;
-    PokemonStatus status;
-    Type type;
-    unsigned _maxHp;
-    unsigned hp; //current vitality
+    Type _type;
+    int _level;
+    int _maxHealth;
+    int _health;
     int _attack;
     int _defense;
     int _specialAttack;
     int _specialDefense;
     int _speed;
-    bool isDead;
+    Status* _status;
 
 public:
-    Pokemon(
-            int attack,
-            int defense,
-            int specialAttack,
-            int specialDefense,
-            int speed = 100, 
-            unsigned level = 1,
-            unsigned maxHp = 100) :
-        _level(level), _maxHp(maxHp), hp(maxHp),
-        _attack(attack), _defense(defense), _specialAttack(specialAttack),
-        _specialDefense(specialDefense), _speed(speed), isDead(false) {}
-    virtual ~Pokemon() =default; //TODO: cambiare, forse
-    virtual void takeDemage()=0;
-    virtual void dealDemage()=0;
+    Pokemon(const std::string& name, const Type& type, int level, int health, int attack, int defense, int specialAttack, int specialDefense, int speed);
+    Pokemon(const Pokemon& p);
+    Pokemon& operator=(const Pokemon& p);
+    virtual ~Pokemon();
+    std::string getName() const;
+    Type getType() const;
+    int getLevel() const;
+    int getMaxHealth() const;
+    int getHealth() const;
+    int getAttack() const;
+    int getDefense() const;
+    int getSpecialAttack() const;
+    int getSpecialDefense() const;
+    int getSpeed() const;
+
+    void applyStatus(Status* status);
+    void removeStatus();
+    bool hasStatus() const;
+
+    void setHealth(int health);
+
+    virtual void attack(Pokemon& other) = 0 ;
 };
 
 #endif // POKEMON_H
