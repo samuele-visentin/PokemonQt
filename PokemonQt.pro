@@ -9,11 +9,21 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    backend/list.cpp \
+    backend/pokemon.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    backend/pokemon_attack.cpp \
+    backend/pokemon_status.cpp \
+    backend/type.cpp
 
 HEADERS += \
-    mainwindow.h
+    backend/list.h \
+    mainwindow.h \
+    backend/pokemon.h \
+    backend/pokemon_attack.h \
+    backend/pokemon_status.h \
+    backend/type.h
 
 FORMS += \
     mainwindow.ui
