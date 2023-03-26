@@ -2,9 +2,11 @@
 #define POKEMON_H
 
 #include <string>
-#include "list.h"
-#include "status.h"
-#include "type.h"
+#include <vector>
+#include "backend/status.h"
+#include "backend/type.h"
+
+class Attack;
 
 class Pokemon {
 private:
@@ -19,9 +21,10 @@ private:
     int _specialDefense;
     int _speed;
     Status* _status;
+    std::vector<Attack>attacks;
 
 public:
-    Pokemon(const std::string& name, const Type& type, int level, int health, int attack, int defense, int specialAttack, int specialDefense, int speed);
+    Pokemon(const std::string& name, const Type& type, int level, int health, int attack, int defense, int specialAttack, int specialDefense, int speed, const std::vector<Attack>& vec);
     Pokemon(const Pokemon& p);
     Pokemon& operator=(const Pokemon& p);
     virtual ~Pokemon();
@@ -36,13 +39,14 @@ public:
     int getSpecialDefense() const;
     int getSpeed() const;
 
-    void applyStatus(Status* status);
+    void setStatus(Status* status);
     void removeStatus();
     bool hasStatus() const;
 
     void setHealth(int health);
+    void takeDamage(int damage);
 
-    virtual void attack(Pokemon& other) = 0 ;
+    virtual void attack(Pokemon& defender, int attackIndex);
 };
 
 #endif // POKEMON_H
