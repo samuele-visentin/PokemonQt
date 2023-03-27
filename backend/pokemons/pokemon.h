@@ -3,15 +3,16 @@
 
 #include <string>
 #include <vector>
-#include "backend/status.h"
+#include "backend/status/status.h"
 #include "backend/type.h"
 
 class Attack;
 
 class Pokemon {
 private:
-    std::string _name;
-    Type _type;
+    //static const std::string _name;
+    //static const Type _type;
+
     int _level;
     int _maxHealth;
     int _health;
@@ -46,7 +47,7 @@ public:
     void setHealth(int health);
     void takeDamage(int damage);
 
-    virtual void attack(Pokemon& defender, int attackIndex);
+    void attack(Pokemon& defender, int attackIndex);
 };
 
 #endif // POKEMON_H

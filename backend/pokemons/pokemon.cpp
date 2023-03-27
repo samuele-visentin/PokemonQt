@@ -32,7 +32,7 @@ Pokemon::~Pokemon() {
 std::string Pokemon::getName() const { return _name; }
 Type Pokemon::getType() const { return _type; }
 int Pokemon::getLevel() const { return _level; }
-int Pokemon::getMaxHealth() const { return _maxHealth; };
+int Pokemon::getMaxHealth() const { return _maxHealth; }
 int Pokemon::getHealth() const { return _health; }
 int Pokemon::getAttack() const { return _attack; }
 int Pokemon::getDefense() const { return _defense; }

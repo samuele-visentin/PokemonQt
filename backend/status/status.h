@@ -5,19 +5,16 @@
 
 class Status {
 private:
-    std::string _name;
     unsigned _duration;
     bool _blocksActions;
     float _probability;
 public:
-    Status(const std::string& name, unsigned duration, bool blocksActions, float probability);
-    const std::string& getName() const;
+    Status(unsigned duration, bool blocksActions, float probability);
+    std::string getName() const=0;
     unsigned getDuration() const;
     bool blockActions() const;
     float getProbability() const;
-    static const Status BURNED;
-    static const Status PARALYZED;
-    static const Status ASLEEP;
+    virtual void effect()=0;
 };
 
 #endif // STATUS_H
