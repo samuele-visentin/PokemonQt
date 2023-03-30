@@ -9,9 +9,10 @@
 class Attack;
 
 class Pokemon {
+protected:
+    static const Type _type;
 private:
-    std::string _name;
-    Type _type;
+    std::string _username;
     int _level;
     int _maxHealth;
     int _health;
@@ -21,15 +22,17 @@ private:
     int _specialDefense;
     int _speed;
     Status* _status;
-    std::vector<Attack>attacks;
+    std::vector<Attack> attacks;
 
 public:
-    Pokemon(const std::string& name, const Type& type, int level, int health, int attack, int defense, int specialAttack, int specialDefense, int speed, const std::vector<Attack>& vec);
+    Pokemon(const std::string& username, int level, int health,
+            int attack, int defense, int specialAttack,
+            int specialDefense, int speed, const std::vector<Attack>& vec
+        );
     Pokemon(const Pokemon& p);
     Pokemon& operator=(const Pokemon& p);
     virtual ~Pokemon();
     std::string getName() const;
-    Type getType() const;
     int getLevel() const;
     int getMaxHealth() const;
     int getHealth() const;
@@ -38,15 +41,16 @@ public:
     int getSpecialAttack() const;
     int getSpecialDefense() const;
     int getSpeed() const;
-
-    void setStatus(Status* status);
+    Attack getAttack(int index) const;
+    Type getType() const;
+    void setStatus(const Status& status);
     void removeStatus();
     bool hasStatus() const;
 
     void setHealth(int health);
     void takeDamage(int damage);
 
-    virtual void attack(Pokemon& defender, int attackIndex);
+    void attack(Pokemon& defender, int attackIndex);
 };
 
 #endif // POKEMON_H
