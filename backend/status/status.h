@@ -1,23 +1,25 @@
 #ifndef STATUS_H
 #define STATUS_H
 
+class Pokemon;
 #include <string>
 
 class Status {
 private:
-    std::string _name;
     unsigned _duration;
     bool _blocksActions;
     float _probability;
-    Status(const std::string& name, unsigned duration, bool blocksActions, float probability);
+protected:
+    static const std::string NAME;
 public:
-    const std::string& getName() const;
+    Status(unsigned duration, bool blocksActions, float probability);
+    virtual ~Status();
+    Status(const Status&);
+    std::string getName() const;
     unsigned getDuration() const;
     bool blockActions() const;
     float getProbability() const;
-    static const Status BURNED;
-    static const Status PARALYZED;
-    static const Status ASLEEP;
+    virtual void effect(Pokemon&)=0;
 };
 
 #endif // STATUS_H

@@ -13,7 +13,8 @@ SOURCES += \
     backend/list.cpp \
     backend/pokemons/pokemon.cpp \
     backend/pokemons/charizard.cpp \
-    backend/status.cpp \
+    backend/status/burned_status.cpp \
+    backend/status/status.cpp \
     main.cpp \
     mainwindow.cpp \
     backend/type.cpp
@@ -22,7 +23,8 @@ HEADERS += \
     backend/attacks/attack.h \
     backend/list.h \
     backend/pokemons/charizard.h \
-    backend/status.h \
+    backend/status/burned_status.h \
+    backend/status/status.h \
     mainwindow.h \
     backend/pokemons/pokemon.h \
     backend/type.h
