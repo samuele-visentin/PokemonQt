@@ -22,4 +22,8 @@ unsigned short Attack::getCurrentUsage() const {
     return currentUsage;
 }
 
+std::string Attack::getName() const {
+    return name;
+}
+
 

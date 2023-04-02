@@ -15,6 +15,7 @@ SOURCES += \
     backend/pokemons/charizard.cpp \
     backend/status/burned_status.cpp \
     backend/status/status.cpp \
+    frontend/battaglia/info.cpp \
     main.cpp \
     mainwindow.cpp \
     backend/type.cpp
@@ -25,6 +26,7 @@ HEADERS += \
     backend/pokemons/charizard.h \
     backend/status/burned_status.h \
     backend/status/status.h \
+    frontend/battaglia/info.h \
     mainwindow.h \
     backend/pokemons/pokemon.h \
     backend/type.h

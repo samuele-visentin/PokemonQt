@@ -3,14 +3,15 @@
 
 #include <string>
 #include <vector>
-#include "backend/status/status.h"
 #include "backend/type.h"
 
 class Attack;
+class Status;
 
 class Pokemon {
 protected:
     static const Type _type;
+    static const std::string _name;
 private:
     std::string _username;
     int _level;
@@ -22,12 +23,12 @@ private:
     int _specialDefense;
     int _speed;
     Status* _status;
-    std::vector<Attack> attacks;
+    std::vector<Attack*> attacks;
 
 public:
     Pokemon(const std::string& username, int level, int health,
             int attack, int defense, int specialAttack,
-            int specialDefense, int speed, const std::vector<Attack>& vec
+            int specialDefense, int speed, const std::vector<Attack*>& vec
         );
     Pokemon(const Pokemon& p);
     Pokemon& operator=(const Pokemon& p);
@@ -41,9 +42,10 @@ public:
     int getSpecialAttack() const;
     int getSpecialDefense() const;
     int getSpeed() const;
-    Attack getAttack(int index) const;
+    Attack& getAttack(int index);
     Type getType() const;
-    void setStatus(const Status& status);
+    void setStatus(Status* status);
+    Status& getStatus();
     void removeStatus();
     bool hasStatus() const;
 
