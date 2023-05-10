@@ -57,16 +57,17 @@ int Pokemon::getSpecialAttack() const { return _specialAttack; }
 int Pokemon::getSpecialDefense() const { return _specialDefense; }
 int Pokemon::getSpeed() const { return _speed; }
 Type Pokemon::getType() const { return _type; }
+const Status& Pokemon::getStatus() const { return *_status; }
 
 void Pokemon::setStatus(Status* status) {
+    if(hasStatus()) {
+        delete _status;
+    }
     _status = status;
 }
 
 void Pokemon::removeStatus() {
-    if(hasStatus()) {
-       delete _status;
-       _status = nullptr;
-    }
+    setStatus(nullptr);
 }
 
 bool Pokemon::hasStatus() const { return _status != nullptr; }

@@ -42,16 +42,14 @@ public:
     int getSpecialAttack() const;
     int getSpecialDefense() const;
     int getSpeed() const;
-    Attack& getAttack(int index);
-    Type getType() const;
+    const Attack& getAttack(int index) const;
+    Type getType() const; 
+    const Status& getStatus() const;
     void setStatus(Status* status);
-    Status& getStatus();
     void removeStatus();
     bool hasStatus() const;
-
     void setHealth(int health);
     void takeDamage(int damage);
-
     void attack(Pokemon& defender, int attackIndex);
 };
 
