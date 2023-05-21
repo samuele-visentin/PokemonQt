@@ -2,20 +2,27 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+#include <QComboBox>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QLabel>
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
+private:
+    QLabel* _title;
+    QLabel* _text;
+    QComboBox* _dropdown;
+    QPushButton* _play;
+    QPushButton* _team;
+    QVBoxLayout* _layout;
+    QWidget* _centralWidget;
+    QHBoxLayout* _buttonLayout;
+private slots:
+    void onPlayButton();
+    void onTeamButton();
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-
-private:
-    Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

@@ -9,3 +9,5 @@ Charizard::Charizard(int level, int health,
 
 const std::string Charizard::Pokemon::_name = "Charizard";
 const Type Charizard::Pokemon::_type = Type::FIRE_TYPE;
+const std::string Charizard::Pokemon::imageFrontPath = "assets/charizard/front.png";
+const std::string Charizard::Pokemon::imageBackPath="assets/charizard/back.png";

@@ -6,7 +6,7 @@
 #include <QProgressBar>
 #include <QLabel>
 
-class Info : public QWidget
+class InfoWidget : public QWidget
 {
     Q_OBJECT
 private:
@@ -16,7 +16,7 @@ private:
     QLabel* health;
     QLabel* status;
 public:
-    Info(Pokemon& pokemon, QWidget* parent = 0);
+    InfoWidget(Pokemon& pokemon, QWidget* parent = 0);
     void show() const;
 };
 

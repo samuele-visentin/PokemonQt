@@ -12,6 +12,8 @@ class Pokemon {
 protected:
     static const Type _type;
     static const std::string _name;
+    static const std::string imageFrontPath;
+    static const std::string imageBackPath;
 private:
     std::string _username;
     int _level;

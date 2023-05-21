@@ -10,29 +10,34 @@ CONFIG += c++17
 
 SOURCES += \
     backend/attacks/attack.cpp \
+    backend/battle/battle.cpp \
+    backend/jsondatamanager.cpp \
     backend/list.cpp \
     backend/pokemons/pokemon.cpp \
     backend/pokemons/charizard.cpp \
     backend/status/burned_status.cpp \
     backend/status/status.cpp \
-    frontend/battaglia/info.cpp \
+    frontend/battaglia/battle_scene.cpp \
+    frontend/battaglia/info_widget.cpp \
     main.cpp \
     mainwindow.cpp \
     backend/type.cpp
 
 HEADERS += \
     backend/attacks/attack.h \
+    backend/battle/battle.h \
+    backend/jsondatamanager.h \
     backend/list.h \
     backend/pokemons/charizard.h \
     backend/status/burned_status.h \
     backend/status/status.h \
-    frontend/battaglia/info.h \
+    frontend/battaglia/battle_scene.h \
+    frontend/battaglia/info_widget.h \
     mainwindow.h \
     backend/pokemons/pokemon.h \
     backend/type.h
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

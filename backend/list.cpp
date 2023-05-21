@@ -37,7 +37,7 @@ template<class T>
 List<T>::List() : first(nullptr), last(nullptr){}
 
 template<class T>
-List<T>::List(const List& list) : first(nullptr),
+List<T>::List(const List<T>& list) : first(nullptr),
     last(nullptr) {
     copy(list.first, first, last);
 }
@@ -49,7 +49,7 @@ List<T>::~List() {
 }
 
 template<class T>
-List<T>& List<T>::operator=(const List& list) {
+List<T>& List<T>::operator=(const List<T>& list) {
     if(this != &list) {
         if(first) destroy(first);
         copy(list.first, first, last);

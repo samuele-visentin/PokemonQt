@@ -1,5 +1,5 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef LIST_CUSTOM_H
+#define LIST_CUSTOM_H
 
 template<class T>
 class List { //Lista doppiamente linkata
@@ -16,9 +16,9 @@ private:
 public:
     List(const T& elem);
     List();
-    List(const List& list);
+    List(const List<T>& list);
     ~List();
-    List& operator=(const List& list);
+    List<T>& operator=(const List<T>& list);
     void insertFront(const T& elem);
     void insertBack(const T& elem);
 

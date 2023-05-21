@@ -1,9 +1,9 @@
-#include "info.h"
+#include "info_widget.h"
 #include "backend/status/status.h"
 #include "backend/pokemons/pokemon.h"
 #include <QHBoxLayout>
 
-Info::Info(Pokemon& pokemon, QWidget* parent) : QWidget(parent), _pokemon(pokemon)
+InfoWidget::InfoWidget(Pokemon& pokemon, QWidget* parent) : QWidget(parent), _pokemon(pokemon)
 {   
     QHBoxLayout* layout = new QHBoxLayout(this);
     layout->setAlignment(Qt::AlignTop | Qt::AlignCenter);
@@ -25,7 +25,7 @@ Info::Info(Pokemon& pokemon, QWidget* parent) : QWidget(parent), _pokemon(pokemo
     }
 }
 
-void Info::show() const {
+void InfoWidget::show() const {
     name->setText(QString::fromStdString(_pokemon.getName()));
     healthBar->setValue(_pokemon.getHealth());
     health->setText(QString::number(_pokemon.getHealth()));
