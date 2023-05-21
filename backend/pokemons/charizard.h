@@ -8,7 +8,7 @@ class Charizard : public Pokemon
 private:
 
 public:
-    Charizard(int leverl, int health,
+    Charizard(int level, int health,
               int attack, int defend, int specialAttack,
               int specialDefense, int speed, const std::vector<Attack*>& vec,
               const std::string& username = _name);

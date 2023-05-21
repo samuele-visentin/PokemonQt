@@ -11,13 +11,17 @@ private:
     std::list<Pokemon*> _npc;
     std::string _playerName;
     std::string _npcName;
-    bool _isOver;
     void performTurn();
 public:
     Battle(std::list<Pokemon*>, std::list<Pokemon*>,
            const std::string&, const std::string&);
+    ~Battle();
+    Battle(const Battle&);
+    Battle& operator=(const Battle&);
     std::string getPlayerName() const;
     std::string getNpcName() const;
+    Pokemon& getNpcPokemon(int index);
+    Pokemon& getPlayerPokemon(int index);
 };
 
 #endif // BATTLE_H

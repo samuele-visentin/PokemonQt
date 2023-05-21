@@ -16,8 +16,10 @@ private:
     QLabel* health;
     QLabel* status;
 public:
-    InfoWidget(Pokemon& pokemon, QWidget* parent = 0);
-    void show() const;
+    InfoWidget(Pokemon& pokemon,
+               QWidget* parent = 0
+            );
+    void refresh();
 };
 
 #endif // INFO_H

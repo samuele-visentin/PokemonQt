@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QLabel>
+#include "frontend/battaglia/battle_scene.h"
 
 class MainWindow : public QMainWindow
 {
@@ -19,6 +20,7 @@ private:
     QVBoxLayout* _layout;
     QWidget* _centralWidget;
     QHBoxLayout* _buttonLayout;
+    BattleScene* _battleScene;
 private slots:
     void onPlayButton();
     void onTeamButton();

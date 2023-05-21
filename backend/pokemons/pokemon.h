@@ -1,6 +1,7 @@
 #ifndef POKEMON_H
 #define POKEMON_H
 
+#include <list>
 #include <string>
 #include <vector>
 #include "backend/type.h"
@@ -12,8 +13,7 @@ class Pokemon {
 protected:
     static const Type _type;
     static const std::string _name;
-    static const std::string imageFrontPath;
-    static const std::string imageBackPath;
+    static const std::string sprite;
 private:
     std::string _username;
     int _level;
@@ -25,16 +25,16 @@ private:
     int _specialDefense;
     int _speed;
     Status* _status;
-    std::vector<Attack*> attacks;
-
+    std::list<Attack*> attacks;
+    Pokemon(const Pokemon& p);
+    Pokemon& operator=(const Pokemon& p);
 public:
     Pokemon(const std::string& username, int level, int health,
             int attack, int defense, int specialAttack,
-            int specialDefense, int speed, const std::vector<Attack*>& vec
-        );
-    Pokemon(const Pokemon& p);
-    Pokemon& operator=(const Pokemon& p);
+            int specialDefense, int speed, const std::list<Attack*>& vec
+    );
     virtual ~Pokemon();
+    virtual Pokemon* clone() const;
     std::string getName() const;
     int getLevel() const;
     int getMaxHealth() const;

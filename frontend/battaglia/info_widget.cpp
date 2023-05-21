@@ -8,15 +8,19 @@ InfoWidget::InfoWidget(Pokemon& pokemon, QWidget* parent) : QWidget(parent), _po
     QHBoxLayout* layout = new QHBoxLayout(this);
     layout->setAlignment(Qt::AlignTop | Qt::AlignCenter);
 
-    name = new QLabel(QString::fromStdString(pokemon.getName()));
+    name = new QLabel(QString::fromStdString(pokemon.getName()),this);
     layout->addWidget(name);
 
-    healthBar = new QProgressBar();
-    healthBar->setMaximum(pokemon.getMaxHealth());
-    healthBar->setMinimum(0);
+    healthBar = new QProgressBar(this);
+    healthBar->setRange(0, pokemon.getMaxHealth());
+    healthBar->setValue(pokemon.getMaxHealth());
     layout->addWidget(healthBar);
 
-    health = new QLabel(QString::number(pokemon.getHealth()) + " / " + QString::number(pokemon.getMaxHealth()));
+    health = new QLabel(
+                QString::number(pokemon.getHealth()) +
+                " / " + QString::number(pokemon.getMaxHealth()),
+                this
+            );
     layout->addWidget(health);
 
     if(pokemon.hasStatus()) {
@@ -25,7 +29,7 @@ InfoWidget::InfoWidget(Pokemon& pokemon, QWidget* parent) : QWidget(parent), _po
     }
 }
 
-void InfoWidget::show() const {
+void InfoWidget::refresh() {
     name->setText(QString::fromStdString(_pokemon.getName()));
     healthBar->setValue(_pokemon.getHealth());
     health->setText(QString::number(_pokemon.getHealth()));

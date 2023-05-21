@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "backend/battle/battle.h"
 #include "frontend/battaglia/battle_scene.h"
+#include "backend/pokemons/charizard.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -8,23 +9,23 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Qt Pokemon");
     setFixedSize(300,180);
 
-    _title = new QLabel(this);
+    _title = new QLabel();
     _title->setText("<b>Pokemon simulator battle</b>");
     _title->setAlignment(Qt::AlignCenter);
 
-    _text = new QLabel(this);
+    _text = new QLabel();
     _text->setText("Seleziona il team da usare:");
 
-    _dropdown = new QComboBox(this);
+    _dropdown = new QComboBox();
     _dropdown->addItem("Default team");
     _dropdown->addItem("Custom team");
 
-    _play = new QPushButton("Play", this);
+    _play = new QPushButton("Play");
     _play->setMaximumSize(100,30);
-    _team = new QPushButton("Creazione team", this);
+    _team = new QPushButton("Creazione team");
     _team->setMaximumSize(100,30);
 
-    _buttonLayout = new QHBoxLayout(this);
+    _buttonLayout = new QHBoxLayout();
     _buttonLayout->addWidget(_play);
     _buttonLayout->addWidget(_team);
 
@@ -36,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     _layout->addLayout(_buttonLayout);
     _layout->setAlignment(Qt::AlignCenter);
 
-    _centralWidget = new QWidget(this);
+    _centralWidget = new QWidget();
     _centralWidget->setLayout(_layout);
     setCentralWidget(_centralWidget);
 
@@ -47,11 +48,14 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::onPlayButton(){
     //TODO load from json
     std::list<Pokemon*> list1, list2;
-    list1 = list2;
-    Battle* battle = new Battle(list1,list2,
-                    "Player1","Player2");
-    BattleScene* battleScene = new BattleScene(battle, this);
-    setCentralWidget(battleScene);
+    std::list<Attack*> attack;
+    list1.push_front(new Charizard(100,100,100,100,20,20,50,attack));
+    list2.push_front(new Charizard(100,100,100,100,20,20,50,attack));
+    Battle battle(list1,list2,"Player1","Player2");
+    _battleScene = new BattleScene(battle);
+    setCentralWidget(_battleScene);
 }
-void MainWindow::onTeamButton(){}
+void MainWindow::onTeamButton(){
+    //TODO creazione team
+}
 

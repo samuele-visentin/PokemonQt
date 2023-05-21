@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QTextEdit>
 
 class BattleScene: public QWidget
 {
@@ -15,12 +16,12 @@ private:
     QLabel* _playerLabel;
     QLabel* _npcLabel;
     QVBoxLayout* _vLayout;
-    InfoWidget* info1;
-    InfoWidget* info2;
-    Battle* _battle;
+    InfoWidget* _playerWidget;
+    InfoWidget* _npcWidget;
+    QTextEdit* _notificationText;
+    Battle _battle;
 public:
-    BattleScene(Battle* battle, QWidget* parent = nullptr);
-    ~BattleScene();
+    BattleScene(Battle battle, QWidget* parent = nullptr);
 private slots:
     //void onAttackButtonClick();
 };
