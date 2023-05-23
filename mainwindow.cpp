@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::onPlayButton(){
     //TODO load from json
     std::list<Pokemon*> list1, list2;
-    std::list<Attack*> attack;
+    std::list<Attack> attack;
     list1.push_front(new Charizard(100,100,100,100,20,20,50,attack));
     list2.push_front(new Charizard(100,100,100,100,20,20,50,attack));
     Battle battle(list1,list2,"Player1","Player2");

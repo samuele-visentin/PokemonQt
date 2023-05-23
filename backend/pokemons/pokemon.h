@@ -5,8 +5,8 @@
 #include <string>
 #include <vector>
 #include "backend/type.h"
+#include "backend/attacks/attack.h"
 
-class Attack;
 class Status;
 
 class Pokemon {
@@ -25,16 +25,16 @@ private:
     int _specialDefense;
     int _speed;
     Status* _status;
-    std::list<Attack*> attacks;
-    Pokemon(const Pokemon& p);
-    Pokemon& operator=(const Pokemon& p);
+    std::list<Attack> attacks;
 public:
     Pokemon(const std::string& username, int level, int health,
             int attack, int defense, int specialAttack,
-            int specialDefense, int speed, const std::list<Attack*>& vec
+            int specialDefense, int speed, const std::list<Attack>& vec
     );
+    Pokemon(const Pokemon& p);
+    Pokemon& operator=(const Pokemon& p);
     virtual ~Pokemon();
-    virtual Pokemon* clone() const;
+    virtual Pokemon* clone() const=0;
     std::string getName() const;
     int getLevel() const;
     int getMaxHealth() const;
@@ -52,7 +52,6 @@ public:
     bool hasStatus() const;
     void setHealth(int health);
     void takeDamage(int damage);
-    void attack(Pokemon& defender, int attackIndex);
 };
 
 #endif // POKEMON_H

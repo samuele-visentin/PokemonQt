@@ -1,38 +1,63 @@
 #include "info_widget.h"
-#include "backend/status/status.h"
 #include "backend/pokemons/pokemon.h"
 #include <QHBoxLayout>
+#include "backend/status/status.h"
+#include "frontend/battaglia/entity_visitor.h"
 
-InfoWidget::InfoWidget(Pokemon& pokemon, QWidget* parent) : QWidget(parent), _pokemon(pokemon)
+InfoWidget::InfoWidget(Entity& character, QWidget* parent)
+   : QWidget(parent), _character(character), _currentPokemon(&character.getPokemon(0))
 {   
-    QHBoxLayout* layout = new QHBoxLayout(this);
-    layout->setAlignment(Qt::AlignTop | Qt::AlignCenter);
+    QVBoxLayout* column = new QVBoxLayout(this);
+    column->setAlignment(Qt::AlignTop | Qt::AlignCenter);
 
-    name = new QLabel(QString::fromStdString(pokemon.getName()),this);
-    layout->addWidget(name);
+    QHBoxLayout* row = new QHBoxLayout();
+    row->setAlignment(Qt::AlignTop | Qt::AlignCenter);
+
+    name = new QLabel("<b>"+QString::fromStdString(_currentPokemon->getName())+"</b>",this);
+    column->addWidget(name);
+
+    EntityVisitor visitor;
+    character.accept(visitor);
+    row->addWidget(visitor.getWidget());
 
     healthBar = new QProgressBar(this);
-    healthBar->setRange(0, pokemon.getMaxHealth());
-    healthBar->setValue(pokemon.getMaxHealth());
-    layout->addWidget(healthBar);
+    healthBar->setRange(0, _currentPokemon->getMaxHealth());
+    healthBar->setValue(_currentPokemon->getMaxHealth());
+    healthBar->setFixedHeight(12);
+    healthBar->setTextVisible(false);
+    healthBar->setStyleSheet(
+            "QProgressBar {"
+            "   border: 2px solid gray;"
+            "   border-radius: 5px;"
+            "   background: white;"
+            "   border-style: outset;"
+            "}"
+            "QProgressBar::chunk {"
+            "   background-color: #00FF00;"
+            "   border: 2px solid #00FF00;"
+            "   border-radius: 3px;"
+            "}");
+    row->addWidget(healthBar);
 
     health = new QLabel(
-                QString::number(pokemon.getHealth()) +
-                " / " + QString::number(pokemon.getMaxHealth()),
+                QString::number(_currentPokemon->getHealth()) +
+                " / " + QString::number(_currentPokemon->getMaxHealth()),
                 this
             );
-    layout->addWidget(health);
+    row->addWidget(health);
+    column->addLayout(row);
 
-    if(pokemon.hasStatus()) {
-        status = new QLabel(QString::fromStdString(pokemon.getStatus().getName()));
-        layout->addWidget(status);
+    if(_currentPokemon->hasStatus()) {
+        status = new QLabel(QString::fromStdString(_currentPokemon->getStatus().getName()));
+        column->addWidget(status);
     }
+    setLayout(column);
 }
 
 void InfoWidget::refresh() {
-    name->setText(QString::fromStdString(_pokemon.getName()));
-    healthBar->setValue(_pokemon.getHealth());
-    health->setText(QString::number(_pokemon.getHealth()));
-    if(_pokemon.hasStatus())
-        status->setText(QString::fromStdString(_pokemon.getStatus().getName()));
+    name->setText(QString::fromStdString(_currentPokemon->getName()));
+    healthBar->setValue(_currentPokemon->getHealth());
+    health->setText(QString::number(_currentPokemon->getHealth()));
+    if(_currentPokemon->hasStatus())
+        status->setText(QString::fromStdString((_currentPokemon->getStatus()).getName()));
 }

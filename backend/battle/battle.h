@@ -1,27 +1,19 @@
 #ifndef BATTLE_H
 #define BATTLE_H
 
-#include <list>
-#include "backend/pokemons/pokemon.h"
+#include "backend/entity/enemy.h"
+#include "backend/entity/player.h"
 
 class Battle
 {
 private:
-    std::list<Pokemon*> _player;
-    std::list<Pokemon*> _npc;
-    std::string _playerName;
-    std::string _npcName;
-    void performTurn();
+    Player _player;
+    Enemy _enemy;
 public:
-    Battle(std::list<Pokemon*>, std::list<Pokemon*>,
-           const std::string&, const std::string&);
-    ~Battle();
-    Battle(const Battle&);
-    Battle& operator=(const Battle&);
-    std::string getPlayerName() const;
-    std::string getNpcName() const;
-    Pokemon& getNpcPokemon(int index);
-    Pokemon& getPlayerPokemon(int index);
+    Battle(const Player& player, const Enemy& enemy);
+    Player& getPlayer();
+    Enemy& getEnemy();
+    void performTurn();
 };
 
 #endif // BATTLE_H

@@ -15,13 +15,12 @@ private:
     QPushButton* _attackButton;
     QLabel* _playerLabel;
     QLabel* _npcLabel;
-    QVBoxLayout* _vLayout;
     InfoWidget* _playerWidget;
     InfoWidget* _npcWidget;
     QTextEdit* _notificationText;
     Battle _battle;
 public:
-    BattleScene(Battle battle, QWidget* parent = nullptr);
+    BattleScene(const Battle& battle, QWidget* parent = nullptr);
 private slots:
     //void onAttackButtonClick();
 };

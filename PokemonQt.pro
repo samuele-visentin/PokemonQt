@@ -11,6 +11,9 @@ CONFIG += c++17
 SOURCES += \
     backend/attacks/attack.cpp \
     backend/battle/battle.cpp \
+    backend/entity/enemy.cpp \
+    backend/entity/entity.cpp \
+    backend/entity/player.cpp \
     backend/jsondatamanager.cpp \
     backend/list.cpp \
     backend/pokemons/pokemon.cpp \
@@ -18,6 +21,7 @@ SOURCES += \
     backend/status/burned_status.cpp \
     backend/status/status.cpp \
     frontend/battaglia/battle_scene.cpp \
+    frontend/battaglia/entity_visitor.cpp \
     frontend/battaglia/info_widget.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -26,12 +30,17 @@ SOURCES += \
 HEADERS += \
     backend/attacks/attack.h \
     backend/battle/battle.h \
+    backend/entity/enemy.h \
+    backend/entity/entity.h \
+    backend/entity/entityvisitorinterface.h \
+    backend/entity/player.h \
     backend/jsondatamanager.h \
     backend/list.h \
     backend/pokemons/charizard.h \
     backend/status/burned_status.h \
     backend/status/status.h \
     frontend/battaglia/battle_scene.h \
+    frontend/battaglia/entity_visitor.h \
     frontend/battaglia/info_widget.h \
     mainwindow.h \
     backend/pokemons/pokemon.h \

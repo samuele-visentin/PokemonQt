@@ -1,6 +1,7 @@
 #ifndef INFO_H
 #define INFO_H
 
+#include "backend/entity/entity.h"
 #include "backend/pokemons/pokemon.h"
 #include <QWidget>
 #include <QProgressBar>
@@ -10,15 +11,13 @@ class InfoWidget : public QWidget
 {
     Q_OBJECT
 private:
-    Pokemon& _pokemon;
+    Entity& _character;
     QProgressBar* healthBar;
     QLabel* name;
     QLabel* health;
     QLabel* status;
 public:
-    InfoWidget(Pokemon& pokemon,
-               QWidget* parent = 0
-            );
+    InfoWidget(Entity& character, QWidget* parent = 0);
     void refresh();
 };
 
