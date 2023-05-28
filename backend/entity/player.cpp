@@ -8,5 +8,5 @@ void Player::accept(EntityVisitorInterface& visitor) {
     visitor.visitPlayer(*this);
 }
 
-std::string Player::getSprite() const { return "assets/player.png"; }
+std::string Player::getSprite() const { return ":/assets/player.png"; }
 

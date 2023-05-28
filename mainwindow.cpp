@@ -2,6 +2,8 @@
 #include "backend/battle/battle.h"
 #include "frontend/battaglia/battle_scene.h"
 #include "backend/pokemons/charizard.h"
+#include <QApplication>
+#include <QScreen>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -46,13 +48,28 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::onPlayButton(){
-    //TODO load from json
+    //TODO load from json ->
     std::list<Pokemon*> list1, list2;
-    std::list<Attack> attack;
-    list1.push_front(new Charizard(100,100,100,100,20,20,50,attack));
-    list2.push_front(new Charizard(100,100,100,100,20,20,50,attack));
-    Battle battle(list1,list2,"Player1","Player2");
+    std::vector<Attack> attack;
+    attack.push_back(Attack::AIR_SLASH);
+    attack.push_back(Attack::BITE);
+    attack.push_back(Attack::QUICK_ATTACK);
+    attack.push_back(Attack::DARK_PULSE);
+    list1.push_front(new Charizard(100,100,100,100, 50,attack));
+    list2.push_front(new Charizard(100,100,100,100, 50,attack));
+    Player player("SUS",list1);
+    Enemy enemy("SAS",list2);
+    Battle battle(player, enemy);
     _battleScene = new BattleScene(battle);
+    // <-
+
+    setFixedSize(1000,600);
+    //Portiamo la schermata al centro dello schermo
+    QScreen* screen = QGuiApplication::primaryScreen();
+    QRect availableGeometry = screen->availableGeometry();
+    int x = (availableGeometry.width() - width()) / 2;
+    int y = (availableGeometry.height() - height()) / 2;
+    move(x, y);
     setCentralWidget(_battleScene);
 }
 void MainWindow::onTeamButton(){

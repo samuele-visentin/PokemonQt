@@ -20,9 +20,12 @@ SOURCES += \
     backend/pokemons/charizard.cpp \
     backend/status/burned_status.cpp \
     backend/status/status.cpp \
+    frontend/battaglia/attack_widget.cpp \
     frontend/battaglia/battle_scene.cpp \
     frontend/battaglia/entity_visitor.cpp \
     frontend/battaglia/info_widget.cpp \
+    frontend/battaglia/notification_text.cpp \
+    frontend/battaglia/status_pokemon.cpp \
     main.cpp \
     mainwindow.cpp \
     backend/type.cpp
@@ -39,9 +42,12 @@ HEADERS += \
     backend/pokemons/charizard.h \
     backend/status/burned_status.h \
     backend/status/status.h \
+    frontend/battaglia/attack_widget.h \
     frontend/battaglia/battle_scene.h \
     frontend/battaglia/entity_visitor.h \
     frontend/battaglia/info_widget.h \
+    frontend/battaglia/notification_text.h \
+    frontend/battaglia/status_pokemon.h \
     mainwindow.h \
     backend/pokemons/pokemon.h \
     backend/type.h
@@ -52,3 +58,6 @@ FORMS +=
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

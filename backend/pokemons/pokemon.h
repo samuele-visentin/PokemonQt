@@ -21,30 +21,28 @@ private:
     int _health;
     int _attack;
     int _defense;
-    int _specialAttack;
-    int _specialDefense;
     int _speed;
     Status* _status;
-    std::list<Attack> attacks;
+    std::vector<Attack> attacks;
 public:
     Pokemon(const std::string& username, int level, int health,
-            int attack, int defense, int specialAttack,
-            int specialDefense, int speed, const std::list<Attack>& vec
+            int attack, int defense,
+            int speed, const std::vector<Attack>& vec
     );
     Pokemon(const Pokemon& p);
     Pokemon& operator=(const Pokemon& p);
     virtual ~Pokemon();
     virtual Pokemon* clone() const=0;
     std::string getName() const;
+    std::string getSprite() const;
     int getLevel() const;
     int getMaxHealth() const;
     int getHealth() const;
     int getAttack() const;
     int getDefense() const;
-    int getSpecialAttack() const;
-    int getSpecialDefense() const;
     int getSpeed() const;
-    const Attack& getAttack(int index) const;
+    Attack& getAttackMove(int index);
+    std::vector<Attack>& getAttackList();
     Type getType() const; 
     const Status& getStatus() const;
     void setStatus(Status* status);
@@ -52,6 +50,8 @@ public:
     bool hasStatus() const;
     void setHealth(int health);
     void takeDamage(int damage);
+    void attack(Pokemon& enemy, int indexAttack);
+    bool isFainted() const;
 };
 
 #endif // POKEMON_H

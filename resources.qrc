@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/pokemons/back/charizard.png</file>
+        <file>assets/pokemons/front/charizard.png</file>
+    </qresource>
+</RCC>

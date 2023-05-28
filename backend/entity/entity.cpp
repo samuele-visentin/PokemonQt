@@ -3,7 +3,7 @@
 Entity::Entity(const std::string& name, const std::list<Pokemon*>& pokemons)
     : _name(name),
       _pokemons(pokemons),
-      _currentPokemon(nullptr)
+      _currentPokemon(*(pokemons.begin()))
 {}
 
 Entity::Entity(const Entity& e)

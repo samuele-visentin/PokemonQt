@@ -13,7 +13,7 @@ public:
     Battle(const Player& player, const Enemy& enemy);
     Player& getPlayer();
     Enemy& getEnemy();
-    void performTurn();
+    void performTurn(int indexAttack);
 };
 
 #endif // BATTLE_H

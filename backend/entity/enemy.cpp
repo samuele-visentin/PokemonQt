@@ -8,4 +8,4 @@ void Enemy::accept(EntityVisitorInterface& visitor) {
     visitor.visitEnemy(*this);
 }
 
-std::string Enemy::getSprite() const { return "assets/enemy.png"; }
+std::string Enemy::getSprite() const { return ":/assets/enemy.png"; }
