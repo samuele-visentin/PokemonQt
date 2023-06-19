@@ -2,23 +2,27 @@
 #define STATUS_H
 
 #include <string>
-#include "backend/pokemons/pokemon.h"
+#include <QDataStream>
+
+class Pokemon;
 
 class Status {
+    friend QDataStream& operator<<(QDataStream& out, const Status& status);
 private:
-    unsigned _duration;
-    float _probability;
+    std::string _name;
+    int _probability;
 protected:
-    static const std::string NAME;
+    int _duration;
 public:
-    Status(unsigned duration, float probability);
+    Status(const std::string& name, int probability, int duration);
     virtual ~Status() = default;
     std::string getName() const;
     unsigned getDuration() const; 
     float getProbability() const;
-    virtual void effect(Pokemon&)=0;
-    virtual bool blockActions() const=0;
+    bool isFinish() const;
+    virtual int statusEffect()=0;
     virtual Status* clone() const=0;
+    virtual bool canAttack() const=0;
 };
 
 #endif // STATUS_H

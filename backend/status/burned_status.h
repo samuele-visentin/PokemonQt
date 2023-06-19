@@ -6,12 +6,12 @@
 class BurnedStatus : public Status
 {
 private:
-    int _damage; //Percentuale
+    int _damage;
 public:
-    BurnedStatus(int damage = 3, unsigned duration = 3, float probability = .2f);
+    BurnedStatus(int probability = 75, int damage = 10, int duration=3);
     BurnedStatus* clone() const override;
-    bool blockActions() const override;
-    void effect(Pokemon&) override;
+    int statusEffect() override;
+    bool canAttack() const override;
 };
 
 #endif // BURNEDSTATUS_H

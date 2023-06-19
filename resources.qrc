@@ -2,5 +2,14 @@
     <qresource prefix="/">
         <file>assets/pokemons/back/charizard.png</file>
         <file>assets/pokemons/front/charizard.png</file>
+        <file>assets/pokemons/front/pikachu.png</file>
+        <file>assets/pokemons/back/pikachu.png</file>
+        <file>assets/pokemons/front/giratina.png</file>
+        <file>assets/pokemons/back/giratina.png</file>
+        <file>assets/pokemons/front/darkrai.png</file>
+        <file>assets/pokemons/front/infernape.png</file>
+        <file>assets/pokemons/back/darkrai.png</file>
+        <file>assets/pokemons/back/infernape.png</file>
+        <file>assets/masterball.ico</file>
     </qresource>
 </RCC>

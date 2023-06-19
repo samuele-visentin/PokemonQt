@@ -11,9 +11,12 @@ private:
     Enemy _enemy;
 public:
     Battle(const Player& player, const Enemy& enemy);
+    Battle() = default;
     Player& getPlayer();
     Enemy& getEnemy();
-    void performTurn(int indexAttack);
+    Attack& getPlayerAttack(int index);
+    Attack& getEnemyAttack();
+    bool isFinished() const;
 };
 
 #endif // BATTLE_H

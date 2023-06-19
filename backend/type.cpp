@@ -22,171 +22,169 @@ const Type Type::DARK_TYPE(Type::ElementType::DARK, "Dark");
 const Type Type::STEEL_TYPE(Type::ElementType::STEEL, "Steel");
 const Type Type::FAIRY_TYPE(Type::ElementType::FAIRY, "Fairy");
 
-bool Type::isEffectiveAgainst(const Type& other) const {
-    switch (_elementType) {
+bool Type::isEffectiveAgainst(ElementType elementType) const {
+    switch (elementType) {
         case ElementType::NORMAL:
             return false;
         case ElementType::FIRE:
-            return other._elementType == ElementType::GRASS ||
-                   other._elementType == ElementType::ICE ||
-                   other._elementType == ElementType::BUG ||
-                   other._elementType == ElementType::STEEL;
+            return _elementType == ElementType::GRASS ||
+                   _elementType == ElementType::ICE ||
+                   _elementType == ElementType::BUG ||
+                   _elementType == ElementType::STEEL;
         case ElementType::WATER:
-            return other._elementType == ElementType::FIRE ||
-                   other._elementType == ElementType::GROUND ||
-                   other._elementType == ElementType::ROCK;
+            return _elementType == ElementType::FIRE ||
+                   _elementType == ElementType::GROUND ||
+                   _elementType == ElementType::ROCK;
         case ElementType::ELECTRIC:
-            return other._elementType == ElementType::WATER ||
-                   other._elementType == ElementType::FLYING;
+            return _elementType == ElementType::WATER ||
+                   _elementType == ElementType::FLYING;
         case ElementType::GRASS:
-            return other._elementType == ElementType::WATER ||
-                   other._elementType == ElementType::GROUND ||
-                   other._elementType == ElementType::ROCK;
+            return _elementType == ElementType::WATER ||
+                   _elementType == ElementType::GROUND ||
+                   _elementType == ElementType::ROCK;
         case ElementType::ICE:
-            return other._elementType == ElementType::GRASS ||
-                   other._elementType == ElementType::GROUND ||
-                   other._elementType == ElementType::FLYING ||
-                   other._elementType == ElementType::DRAGON;
+            return _elementType == ElementType::GRASS ||
+                   _elementType == ElementType::GROUND ||
+                   _elementType == ElementType::FLYING ||
+                   _elementType == ElementType::DRAGON;
         case ElementType::FIGHTING:
-            return other._elementType == ElementType::NORMAL ||
-                   other._elementType == ElementType::ICE ||
-                   other._elementType == ElementType::ROCK ||
-                   other._elementType == ElementType::DARK ||
-                   other._elementType == ElementType::STEEL;
+            return _elementType == ElementType::NORMAL ||
+                   _elementType == ElementType::ICE ||
+                   _elementType == ElementType::ROCK ||
+                   _elementType == ElementType::DARK ||
+                   _elementType == ElementType::STEEL;
         case ElementType::POISON:
-            return other._elementType == ElementType::GRASS ||
-                   other._elementType == ElementType::FAIRY;
+            return _elementType == ElementType::GRASS ||
+                   _elementType == ElementType::FAIRY;
         case ElementType::GROUND:
-            return other._elementType == ElementType::FIRE ||
-                   other._elementType == ElementType::ELECTRIC ||
-                   other._elementType == ElementType::POISON ||
-                   other._elementType == ElementType::ROCK ||
-                   other._elementType == ElementType::STEEL;
+            return _elementType == ElementType::FIRE ||
+                   _elementType == ElementType::ELECTRIC ||
+                   _elementType == ElementType::POISON ||
+                   _elementType == ElementType::ROCK ||
+                   _elementType == ElementType::STEEL;
         case ElementType::FLYING:
-            return other._elementType == ElementType::GRASS ||
-                   other._elementType == ElementType::FIGHTING ||
-                   other._elementType == ElementType::BUG;
+            return _elementType == ElementType::GRASS ||
+                   _elementType == ElementType::FIGHTING ||
+                   _elementType == ElementType::BUG;
         case ElementType::PSYCHIC:
-            return other._elementType == ElementType::FIGHTING ||
-                   other._elementType == ElementType::POISON;
+            return _elementType == ElementType::FIGHTING ||
+                   _elementType == ElementType::POISON;
         case ElementType::BUG:
-            return other._elementType == ElementType::GRASS ||
-                   other._elementType == ElementType::PSYCHIC ||
-                   other._elementType == ElementType::DARK;
+            return _elementType == ElementType::GRASS ||
+                   _elementType == ElementType::PSYCHIC ||
+                   _elementType == ElementType::DARK;
         case ElementType::ROCK:
-            return other._elementType == ElementType::FIRE ||
-                   other._elementType == ElementType::ICE ||
-                   other._elementType == ElementType::FLYING ||
-                   other._elementType == ElementType::BUG;
+            return _elementType == ElementType::FIRE ||
+                   _elementType == ElementType::ICE ||
+                   _elementType == ElementType::FLYING ||
+                   _elementType == ElementType::BUG;
         case ElementType::GHOST:
-            return other._elementType == ElementType::PSYCHIC ||
-                   other._elementType == ElementType::GHOST;
+            return _elementType == ElementType::PSYCHIC ||
+                   _elementType == ElementType::GHOST;
         case ElementType::DRAGON:
-            return other._elementType == ElementType::DRAGON;
+            return _elementType == ElementType::DRAGON;
         case ElementType::DARK:
-            return other._elementType == ElementType::PSYCHIC ||
-                   other._elementType == ElementType::GHOST;
+            return _elementType == ElementType::PSYCHIC ||
+                   _elementType == ElementType::GHOST;
         case ElementType::STEEL:
-            return other._elementType == ElementType::ICE ||
-                   other._elementType == ElementType::ROCK ||
-                   other._elementType == ElementType::FAIRY;
+            return _elementType == ElementType::ICE ||
+                   _elementType == ElementType::ROCK ||
+                   _elementType == ElementType::FAIRY;
         default:
             return false;
     }
 }
 
 
-bool Type::isResistantTo(const Type& other) const {
-    switch (_elementType) {
+bool Type::isResistantTo(ElementType elementType) const {
+    switch (elementType) {
         case ElementType::NORMAL:
-            return other._elementType == ElementType::ROCK ||
-                   other._elementType == ElementType::STEEL;
+            return _elementType == ElementType::ROCK ||
+                   _elementType == ElementType::STEEL;
         case ElementType::FIRE:
-            return other._elementType == ElementType::FIRE ||
-                   other._elementType == ElementType::GRASS ||
-                   other._elementType == ElementType::ICE ||
-                   other._elementType == ElementType::BUG ||
-                   other._elementType == ElementType::STEEL;
+            return _elementType == ElementType::FIRE ||
+                   _elementType == ElementType::GRASS ||
+                   _elementType == ElementType::ICE ||
+                   _elementType == ElementType::BUG ||
+                   _elementType == ElementType::STEEL;
         case ElementType::WATER:
-            return other._elementType == ElementType::WATER ||
-                   other._elementType == ElementType::ELECTRIC ||
-                   other._elementType == ElementType::STEEL;
+            return _elementType == ElementType::WATER ||
+                   _elementType == ElementType::ELECTRIC ||
+                   _elementType == ElementType::STEEL;
         case ElementType::ELECTRIC:
-            return other._elementType == ElementType::ELECTRIC ||
-                   other._elementType == ElementType::FLYING ||
-                   other._elementType == ElementType::STEEL;
+            return _elementType == ElementType::ELECTRIC ||
+                   _elementType == ElementType::FLYING ||
+                   _elementType == ElementType::STEEL;
         case ElementType::GRASS:
-            return other._elementType == ElementType::WATER ||
-                   other._elementType == ElementType::GROUND ||
-                   other._elementType == ElementType::ROCK;
+            return _elementType == ElementType::WATER ||
+                   _elementType == ElementType::GROUND ||
+                   _elementType == ElementType::ROCK;
         case ElementType::ICE:
-            return other._elementType == ElementType::ICE ||
-                   other._elementType == ElementType::GRASS ||
-                   other._elementType == ElementType::GROUND ||
-                   other._elementType == ElementType::FLYING;
+            return _elementType == ElementType::ICE ||
+                   _elementType == ElementType::GRASS ||
+                   _elementType == ElementType::GROUND ||
+                   _elementType == ElementType::FLYING;
         case ElementType::FIGHTING:
-            return other._elementType == ElementType::BUG ||
-                   other._elementType == ElementType::ROCK ||
-                   other._elementType == ElementType::DARK;
+            return _elementType == ElementType::BUG ||
+                   _elementType == ElementType::ROCK ||
+                   _elementType == ElementType::DARK;
         case ElementType::POISON:
-            return other._elementType == ElementType::GRASS ||
-                   other._elementType == ElementType::FAIRY;
+            return _elementType == ElementType::GRASS ||
+                   _elementType == ElementType::FAIRY;
         case ElementType::GROUND:
-            return other._elementType == ElementType::WATER ||
-                   other._elementType == ElementType::GRASS ||
-                   other._elementType == ElementType::ICE;
+            return _elementType == ElementType::WATER ||
+                   _elementType == ElementType::GRASS ||
+                   _elementType == ElementType::ICE;
         case ElementType::FLYING:
-            return other._elementType == ElementType::ELECTRIC ||
-                   other._elementType == ElementType::ROCK ||
-                   other._elementType == ElementType::STEEL;
+            return _elementType == ElementType::ELECTRIC ||
+                   _elementType == ElementType::ROCK ||
+                   _elementType == ElementType::STEEL;
         case ElementType::PSYCHIC:
-            return other._elementType == ElementType::FIGHTING ||
-                   other._elementType == ElementType::POISON;
+            return _elementType == ElementType::FIGHTING ||
+                   _elementType == ElementType::POISON;
         case ElementType::BUG:
-            return other._elementType == ElementType::GRASS ||
-                   other._elementType == ElementType::PSYCHIC ||
-                   other._elementType == ElementType::DARK;
+            return _elementType == ElementType::GRASS ||
+                   _elementType == ElementType::PSYCHIC ||
+                   _elementType == ElementType::DARK;
         case ElementType::ROCK:
-            return other._elementType == ElementType::FIRE ||
-                   other._elementType == ElementType::ICE ||
-                   other._elementType == ElementType::FLYING ||
-                   other._elementType == ElementType::BUG;
+            return _elementType == ElementType::FIRE ||
+                   _elementType == ElementType::ICE ||
+                   _elementType == ElementType::FLYING ||
+                   _elementType == ElementType::BUG;
         case ElementType::GHOST:
-            return other._elementType == ElementType::GHOST ||
-                   other._elementType == ElementType::PSYCHIC;
+            return _elementType == ElementType::GHOST ||
+                   _elementType == ElementType::PSYCHIC;
         case ElementType::DRAGON:
-            return other._elementType == ElementType::DRAGON;
+            return _elementType == ElementType::DRAGON;
         case ElementType::DARK:
-            return other._elementType == ElementType::FIGHTING ||
-                   other._elementType == ElementType::DARK ||
-                   other._elementType == ElementType::FAIRY;
+            return _elementType == ElementType::FIGHTING ||
+                   _elementType == ElementType::DARK ||
+                   _elementType == ElementType::FAIRY;
         case ElementType::STEEL:
-            return other._elementType == ElementType::FIRE ||
-                   other._elementType == ElementType::FIGHTING ||
-                   other._elementType == ElementType::GROUND ||
-                   other._elementType == ElementType::BUG ||
-                   other._elementType == ElementType::NORMAL ||
-                   other._elementType == ElementType::FLYING ||
-                   other._elementType == ElementType::GRASS ||
-                   other._elementType == ElementType::PSYCHIC ||
-                   other._elementType == ElementType::ICE ||
-                   other._elementType == ElementType::ROCK ||
-                   other._elementType == ElementType::DRAGON ||
-                   other._elementType == ElementType::STEEL;
+            return _elementType == ElementType::FIRE ||
+                   _elementType == ElementType::FIGHTING ||
+                   _elementType == ElementType::GROUND ||
+                   _elementType == ElementType::BUG ||
+                   _elementType == ElementType::NORMAL ||
+                   _elementType == ElementType::FLYING ||
+                   _elementType == ElementType::GRASS ||
+                   _elementType == ElementType::PSYCHIC ||
+                   _elementType == ElementType::ICE ||
+                   _elementType == ElementType::ROCK ||
+                   _elementType == ElementType::DRAGON ||
+                   _elementType == ElementType::STEEL;
         case ElementType::FAIRY:
-            return other._elementType == ElementType::FIGHTING ||
-                   other._elementType == ElementType::DRAGON ||
-                   other._elementType == ElementType::DARK;
+            return _elementType == ElementType::FIGHTING ||
+                   _elementType == ElementType::DRAGON ||
+                   _elementType == ElementType::DARK;
         default:
             return false;
     }
 }
 
-
-bool Type::isWeakTo(const Type& other) const {
-    return other.isEffectiveAgainst(*this);
-}
 
 std::string Type::getName() const {
     return _name;
 }
+
+Type::ElementType Type::getElementType() const { return _elementType; }

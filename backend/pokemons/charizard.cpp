@@ -1,15 +1,12 @@
 #include "charizard.h"
 
-Charizard::Charizard(int level, int health,
-                     int attack, int defense,
-                     int speed,
-                     const std::vector<Attack>& vec,
-                     const std::string& username) :
-    Pokemon(username, level, health, attack, defense, speed, vec){}
+Charizard::Charizard(int health, int attack, int defense, int speed, const std::string& name)
+    : Pokemon(Type::FIRE_TYPE, "charizard.png", name,
+        {Attack::FIRE_BLAST, Attack::FLAMETHROWER, Attack::FLAME_WHEEL, Attack::EMBER},
+        health, attack, defense, speed)
+{}
 
-const std::string Charizard::Pokemon::_name = "Charizard";
-const Type Charizard::Pokemon::_type = Type::FIRE_TYPE;
-const std::string Charizard::Pokemon::sprite= "charizard.png";
+PokemonTypology::typology Charizard::getTypology() const { return PokemonTypology::typology::charizard; }
 
 Charizard* Charizard::clone() const {
     return new Charizard(*this);

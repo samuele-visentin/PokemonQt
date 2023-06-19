@@ -6,17 +6,20 @@
 #include <QLabel>
 #include <QProgressBar>
 
-class StatusPokemon: public QWidget
+class StatusPokemonWidget: public QWidget
 {
     Q_OBJECT
 private:
-    Pokemon* _pokemon;
     QLabel* name;
+    QLabel* type;
     QProgressBar* healthBar;
     QLabel* health;
     QLabel* status;
 public:
-    StatusPokemon(Pokemon* pokemon, QWidget* parent = nullptr);
+    StatusPokemonWidget(Pokemon& pokemon, QWidget* parent = nullptr);
+    void refreshHealth(const Pokemon& pokemon);
+    void changePokemon(const Pokemon& pokemon);
+    void refreshStatus(const Pokemon& pokemon);
 };
 
 #endif // STATUSPOKEMON_H

@@ -6,16 +6,21 @@
 #include <QWidget>
 #include <QProgressBar>
 #include <QLabel>
+#include <QHBoxLayout>
 
 class InfoWidget : public QWidget
 {
     Q_OBJECT
 private:
     Entity& _character;
-    StatusPokemon* statusPokemon;
+    QHBoxLayout* row;
+    QWidget* visitorWidget;
+    StatusPokemonWidget* statusPokemon;
 public:
     InfoWidget(Entity& character, QWidget* parent = 0);
-    void refresh();
+    void refreshHealth();
+    void refreshInfo();
+    void refreshStatus();
 };
 
 #endif // INFO_WIDGET_H

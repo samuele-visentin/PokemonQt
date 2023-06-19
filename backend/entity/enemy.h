@@ -6,10 +6,14 @@
 
 class Enemy: public Entity
 {
+private:
+    int indexPokemon;
 public:
-    Enemy(const std::string& name, const std::list<Pokemon*>&);
+    Enemy(const std::string& name);
+    Enemy() = default;
     void accept(EntityVisitorInterface& visitor) override;
-    std::string getSprite() const override;
+    Enemy* clone() const override;
+    Pokemon& changePokemon();
 };
 
 #endif // ENEMY_H

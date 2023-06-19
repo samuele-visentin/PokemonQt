@@ -7,13 +7,29 @@ InfoWidget::InfoWidget(Entity& character, QWidget* parent)
 {
     EntityVisitor visitor;
     character.accept(visitor);
-    QHBoxLayout* row = new QHBoxLayout(this);
-    row->addWidget(visitor.getWidget());
-    statusPokemon = new StatusPokemon(character.getCurrentPokemon(), this);
+    visitorWidget = visitor.getWidget();
+    row = new QHBoxLayout(this);
+    row->addWidget(visitorWidget);
+    statusPokemon = new StatusPokemonWidget(character.getCurrentPokemon(), this);
     row->addWidget(statusPokemon);
     row->setAlignment(Qt::AlignCenter);
 }
 
-void InfoWidget::refresh() {
+void InfoWidget::refreshHealth() {
+    statusPokemon->refreshHealth(_character.getCurrentPokemon());
+    statusPokemon->refreshStatus(_character.getCurrentPokemon());
+}
 
+void InfoWidget::refreshInfo() {
+    row->removeWidget(visitorWidget);
+    delete visitorWidget;
+    EntityVisitor visitor;
+    _character.accept(visitor);
+    visitorWidget = visitor.getWidget();
+    row->insertWidget(0, visitorWidget);
+    statusPokemon->changePokemon(_character.getCurrentPokemon());
+}
+
+void InfoWidget::refreshStatus() {
+    statusPokemon->refreshStatus(_character.getCurrentPokemon());
 }

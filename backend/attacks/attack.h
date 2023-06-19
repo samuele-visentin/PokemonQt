@@ -3,7 +3,9 @@
 
 #include <string>
 #include <vector>
+#include "backend/status/status.h"
 #include "backend/type.h"
+#include <QDataStream>
 
 class Attack {
 private:
@@ -13,20 +15,27 @@ private:
     int power;
     int accuracy;
     Type::ElementType _type;
+    Status* _status;
 public:
     Attack(Type::ElementType type,
            const std::string& s = "none",
            unsigned short cc=0,
            int power=0,
-           int accuracy=0);
+           int accuracy=0,
+           Status* status = nullptr);
+    Attack(const Attack& attack);
+    Attack& operator=(const Attack& attack);
+    ~Attack();
     std::string getName() const;
     unsigned short getMaxUsage() const;
     unsigned short getCurrentUsage() const;
-    int getPower() const;
-    int getAccuracy() const;
     void consume();
-    static std::vector<const Attack*> getAllAttacks();
+    int calculateDamage(int attack, int defense);
+    const Status& getStatus() const;
+    bool applyStatus() const;
+    Type::ElementType getType() const;
 
+    static std::vector<const Attack*> getAllAttacks();
     static const Attack TACKLE;
     static const Attack HEADBUTT;
     static const Attack QUICK_ATTACK;

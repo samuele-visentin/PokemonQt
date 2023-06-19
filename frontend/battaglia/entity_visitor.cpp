@@ -10,14 +10,10 @@
 QWidget* EntityVisitor::getWidget() { return widget; }
 
 void EntityVisitor::visitPlayer(Player& player)  {
-    Pokemon* pokemon = player.getCurrentPokemon();
-    if(!pokemon) {
-        characterSprite(player);
-        return;
-    }
+    Pokemon& pokemon = player.getCurrentPokemon();
     QLabel* label = new QLabel();
     QString path = ":assets/pokemons/back/" +
-            QString::fromStdString(pokemon->getSprite());
+            QString::fromStdString(pokemon.getSprite());
     QPixmap spriteMap(path);
     label->setPixmap(spriteMap.scaled(QSize(P_SIZE,P_SIZE),Qt::KeepAspectRatio));
     label->setFixedHeight(P_SIZE);
@@ -25,23 +21,11 @@ void EntityVisitor::visitPlayer(Player& player)  {
 }
 
 void EntityVisitor::visitEnemy(Enemy& enemy) {
-    Pokemon* pokemon = enemy.getCurrentPokemon();
-    if(!pokemon) {
-        characterSprite(enemy);
-        return;
-    }
+    Pokemon& pokemon = enemy.getCurrentPokemon();
     QLabel* label = new QLabel();
-    QString path = ":assets/pokemons/front/" + QString::fromStdString(pokemon->getSprite());
+    QString path = ":assets/pokemons/front/" + QString::fromStdString(pokemon.getSprite());
     QPixmap spriteMap(path);
     label->setPixmap(spriteMap.scaled(QSize(P_SIZE,P_SIZE),Qt::KeepAspectRatio));
     label->setFixedHeight(P_SIZE);
     widget = label;
 }
-
-void EntityVisitor::characterSprite(Entity& character) {
-    QLabel* label = new QLabel();
-    QPixmap sprite(QString::fromStdString(character.getSprite()));
-    label->setPixmap(sprite);
-    widget = label;
-}
-

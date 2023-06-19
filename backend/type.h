@@ -9,10 +9,15 @@ public:
         NORMAL, FIRE, WATER, ELECTRIC, GRASS, ICE, FIGHTING, POISON,
         GROUND, FLYING, PSYCHIC, BUG, ROCK, GHOST, DRAGON, DARK, STEEL, FAIRY
     };
-    bool isEffectiveAgainst(const Type& other) const;
-    bool isResistantTo(const Type& other) const;
-    bool isWeakTo(const Type& other) const;
+private:
+    Type(ElementType el, const std::string& name);
+    ElementType _elementType;
+    std::string _name;
+public: 
+    bool isEffectiveAgainst(ElementType other) const;
+    bool isResistantTo(ElementType other) const;
     std::string getName() const;
+    Type::ElementType getElementType() const;
 
     static const Type NORMAL_TYPE;
     static const Type FIRE_TYPE;
@@ -32,11 +37,6 @@ public:
     static const Type DARK_TYPE;
     static const Type STEEL_TYPE;
     static const Type FAIRY_TYPE;
-
-private:
-    Type(ElementType el, const std::string& name);
-    const ElementType _elementType;
-    const std::string _name;
 };
 
 #endif // TYPE_H

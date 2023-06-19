@@ -7,9 +7,11 @@
 class Player: public Entity
 {
 public:
-    Player(const std::string& name, const std::list<Pokemon*>&);
+    Player(const std::string& name, const std::vector<Pokemon*>&);
+    Player() = default;
     void accept(EntityVisitorInterface& visitor) override;
-    std::string getSprite() const override;
+    Player* clone() const override;
+    Pokemon& setCurrentPokemon(int index);
 };
 
 #endif // PLAYER_H

@@ -1,5 +1,6 @@
 #include "notification_text.h"
-#include <QTimer>
+#include <QThread>
+#include <QCoreApplication>
 #include <QHBoxLayout>
 
 NotificationText::NotificationText(QWidget *parent)
@@ -15,22 +16,16 @@ NotificationText::NotificationText(QWidget *parent)
                                     "margin: 10px;"
                                     "}");
     row->addWidget(notificationText);
-    timer = new QTimer(this);
-    timer->setInterval(25);
-    connect(timer, &QTimer::timeout, this, &NotificationText::updateText);
-}
-
-void NotificationText::updateText() {
-    if (currentIndex < static_cast<int>(message.length())) {
-        notificationText->setText(QString::fromStdString(message).left(++currentIndex));
-    } else {
-        timer->stop();
-    }
 }
 
 void NotificationText::notify(const std::string& text) {
-    message = text;
-    currentIndex = 0;
     notificationText->setText("");
-    timer->start();
+    for(int index=0; index<=static_cast<int>(text.length()); ++index) {
+        notificationText->setText(QString::fromStdString(text).left(index));
+        QCoreApplication::processEvents();
+        QThread::msleep(15);
+    }
+    //Diamo un tempo breve per leggere
+    QThread::msleep(500);
 }
+
