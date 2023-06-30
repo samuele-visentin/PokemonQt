@@ -18,8 +18,3 @@ Attack& Battle::getEnemyAttack() {
     int random = std::rand() % 4;
     return _enemy.getCurrentPokemon().getAttackMove(random);
 }
-
-bool Battle::isFinished() const {
-    return _player.hasPokemonAlive() || _enemy.hasPokemonAlive();
-}
-

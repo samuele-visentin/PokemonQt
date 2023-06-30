@@ -8,7 +8,7 @@ unsigned Status::getDuration() const {
     return _duration;
 }
 
-float Status::getProbability() const {
+int Status::getProbability() const {
     return _probability;
 }
 

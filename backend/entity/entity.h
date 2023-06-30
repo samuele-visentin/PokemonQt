@@ -7,8 +7,9 @@
 
 class Entity
 {
-protected:
+private:
     std::string _name;
+protected:
     std::vector<Pokemon*> _pokemons;
     Pokemon* _currentPokemon;
 public:

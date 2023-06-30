@@ -100,6 +100,7 @@ void MainWindow::centerWindow() {
 }
 
 void MainWindow::refreshSaved() {
+    QString current = _dropdown->currentText();
     _dropdown->clear();
     QDir dir("./");
     QStringList filters;
@@ -107,6 +108,10 @@ void MainWindow::refreshSaved() {
     dir.setNameFilters(filters);
     dir.setFilter(QDir::Files | QDir::NoSymLinks);
     _dropdown->addItems(dir.entryList());
+    int index = _dropdown->findText(current);
+    if(index != -1) {
+        _dropdown->setCurrentIndex(index);
+    }
 }
 
 void MainWindow::onPlayButton(){

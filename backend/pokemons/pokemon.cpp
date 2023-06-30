@@ -101,12 +101,9 @@ void Pokemon::doAttack(Pokemon& enemy, Attack& attack) const {
     enemy._health = enemy._health > damage ? enemy._health - damage : 0;
 }
 
-void Pokemon::takeDamage(int demage) {
-    _health = _health > demage ? _health-demage : 0;
-}
-
 void Pokemon::statusEffect() {
-    takeDamage(_status->statusEffect());
+    int damage = _status->statusEffect();
+    _health = _health > damage ? _health-damage : 0;
 }
 
 QDataStream& operator<<(QDataStream& out, const Pokemon& pokemon) {
@@ -140,8 +137,4 @@ QDataStream& operator>>(QDataStream& in, Pokemon*& pokemon) {
             break;
     }
     return in;
-}
-
-bool Pokemon::operator==(const Pokemon& pokemon) const {
-    return _name == pokemon._name;
 }

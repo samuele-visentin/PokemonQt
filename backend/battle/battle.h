@@ -16,7 +16,6 @@ public:
     Enemy& getEnemy();
     Attack& getPlayerAttack(int index);
     Attack& getEnemyAttack();
-    bool isFinished() const;
 };
 
 #endif // BATTLE_H

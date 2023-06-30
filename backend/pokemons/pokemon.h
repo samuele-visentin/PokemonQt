@@ -33,7 +33,6 @@ public:
     Pokemon& operator=(const Pokemon& p);
     virtual ~Pokemon();
     virtual Pokemon* clone() const=0;
-    bool operator==(const Pokemon& pokemon) const;
     virtual PokemonTypology::typology getTypology() const=0;
     std::string getName() const;
     std::string getSprite() const;
@@ -52,7 +51,6 @@ public:
     bool hasStatus() const;
     bool isFainted() const;
     void doAttack(Pokemon& enemy, Attack& attack) const;
-    void takeDamage(int damage);
 };
 
 #endif // POKEMON_H

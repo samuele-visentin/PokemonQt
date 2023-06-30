@@ -162,7 +162,10 @@ void TeamSelectWidget::findPokemon() {
 }
 
 void TeamSelectWidget::saveFile() {
-    QFile file(_fileName->text()+".pokemon");
+    if(!_fileName->text().contains(".pokemon")) {
+        _fileName->setText(_fileName->text() + ".pokemon");
+    }
+    QFile file(_fileName->text());
     if(file.open(QIODevice::WriteOnly)) {
         QDataStream out(&file);
         out.setVersion(QDataStream::Qt_6_2);

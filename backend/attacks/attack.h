@@ -18,8 +18,8 @@ private:
     Status* _status;
 public:
     Attack(Type::ElementType type,
-           const std::string& s = "none",
-           unsigned short cc=0,
+           const std::string& name = "none",
+           unsigned short usage=0,
            int power=0,
            int accuracy=0,
            Status* status = nullptr);
