@@ -9,12 +9,12 @@
 #include <QDir>
 #include <QMessageBox>
 #include <QLineEdit>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), _battleScene(nullptr)
 {
     setWindowTitle("Qt Pokemon");
-    setFixedSize(500,400);
 
     _stackWidget = new QStackedWidget(this);
     QPixmap pixmap(":assets/masterball.ico");
@@ -30,9 +30,12 @@ MainWindow::MainWindow(QWidget *parent)
     _text->setText("Seleziona il file da cui caricare il tuo team:");
     _text->setAlignment(Qt::AlignCenter);
 
-    _dropdown = new QComboBox(this);
-    _dropdown->setFixedWidth(150);
-    refreshSaved();
+    _fileName = new QLineEdit(this);
+    _fileName->setReadOnly(true);
+    _fileName->setFixedWidth(300);
+
+    _pickFile = new QPushButton("Seleziona il file", this);
+    _pickFile->setFixedWidth(120);
 
     _play = new QPushButton("Play", this);
     _play->setFixedWidth(120);
@@ -72,8 +75,8 @@ MainWindow::MainWindow(QWidget *parent)
     _layout->addLayout(enemyRow);
     _layout->addSpacing(10);
     _layout->addWidget(_text);
-    _layout->addWidget(_dropdown);
-    _layout->setAlignment(_dropdown, Qt::AlignCenter);
+    _layout->addWidget(_fileName, 0, Qt::AlignCenter);
+    _layout->addWidget(_pickFile, 0, Qt::AlignCenter);
     _layout->addSpacing(10);
     _layout->addLayout(_buttonLayout);
 
@@ -86,6 +89,7 @@ MainWindow::MainWindow(QWidget *parent)
     _stackWidget->setCurrentWidget(_centralWidget);
     setCentralWidget(_stackWidget);
 
+    connect(_pickFile, &QPushButton::clicked, this, &MainWindow::selectFile);
     connect(_play, &QPushButton::clicked, this, &MainWindow::onPlayButton);
     connect(_team, &QPushButton::clicked, this, &MainWindow::onTeamButton); 
     connect(_teamScene, &TeamSelectWidget::returnToMain, this, &MainWindow::showMenu);
@@ -99,28 +103,13 @@ void MainWindow::centerWindow() {
     move(x, y);
 }
 
-void MainWindow::refreshSaved() {
-    QString current = _dropdown->currentText();
-    _dropdown->clear();
-    QDir dir("./");
-    QStringList filters;
-    filters << "*.pokemon";
-    dir.setNameFilters(filters);
-    dir.setFilter(QDir::Files | QDir::NoSymLinks);
-    _dropdown->addItems(dir.entryList());
-    int index = _dropdown->findText(current);
-    if(index != -1) {
-        _dropdown->setCurrentIndex(index);
-    }
-}
-
 void MainWindow::onPlayButton(){
-    if(_dropdown->currentText() == "") {
-        QMessageBox::information(this, "Pokemon", "Nessun file valido");
+    if(_fileName->text().isEmpty()) {
+        QMessageBox::information(this, "Pokemon", "Seleziona il salvataggio!");
         return;
     }
     std::vector<Pokemon*> playerList;
-    QFile file(_dropdown->currentText());
+    QFile file(_fileName->text());
     if(file.open((QIODevice::ReadOnly))) {
         QDataStream in(&file);
         in.setVersion(QDataStream::Qt_6_2);
@@ -144,22 +133,29 @@ void MainWindow::onPlayButton(){
     }
     _battleScene = new BattleScene(battle, this);
     connect(_battleScene, &BattleScene::returnToMain, this, &MainWindow::showMenu);
-    setFixedSize(1000,600);
     centerWindow();
     _stackWidget->addWidget(_battleScene);
     _stackWidget->setCurrentWidget(_battleScene);
 }
 
 void MainWindow::onTeamButton(){
-    _teamScene->setFile(_dropdown->currentText().toStdString());
+    _teamScene->setFile(_fileName->text());
     _stackWidget->setCurrentWidget(_teamScene);
-    setFixedSize(600,450);
     centerWindow();
 }
 
 void MainWindow::showMenu() {
     _stackWidget->setCurrentIndex(0);
-    setFixedSize(500,400);
     centerWindow();
-    refreshSaved();
+}
+
+void MainWindow::selectFile() {
+    QString dir = QFileDialog::getOpenFileName(
+        this,
+        tr("Seleziona il salvataggio"),
+        _fileName->text().isEmpty() ? QDir::currentPath() : _fileName->text(),
+        tr("Pokemon save files (*.pokemon)"));
+    if(!dir.isEmpty()) {
+        _fileName->setText(dir);
+    }
 }

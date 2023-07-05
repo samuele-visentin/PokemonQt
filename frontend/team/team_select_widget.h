@@ -17,7 +17,7 @@ private:
     QPushButton* _modifyButton;
     QPushButton* _removeButton;
     PokemonSelectorWidget* _selector;
-    QLineEdit* _fileName;
+    QString _fileName;
     QLineEdit* _nameToSearch;
     List<Pokemon*> _pokemonList;
     List<Pokemon*>::iterator _iterator;
@@ -31,7 +31,7 @@ private slots:
 public:
     TeamSelectWidget(QWidget *parent = nullptr);
     ~TeamSelectWidget();
-    void setFile(const std::string& fileName);
+    void setFile(const QString& fileName);
 signals:
     void returnToMain();
 };

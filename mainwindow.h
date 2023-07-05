@@ -17,17 +17,18 @@ private:
     QLineEdit* _playerName;
     QLineEdit* _enemyName;
     QStackedWidget* _stackWidget;
-    QComboBox* _dropdown;
+    QLineEdit* _fileName;
+    QPushButton* _pickFile;
     QPushButton* _play;
     QPushButton* _team;
     BattleScene* _battleScene;
     TeamSelectWidget* _teamScene;
     void centerWindow();
-    void refreshSaved();
 private slots:
     void onPlayButton();
     void onTeamButton();
     void showMenu();
+    void selectFile();
 public:
     MainWindow(QWidget *parent = nullptr);
 };

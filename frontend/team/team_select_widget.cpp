@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QLineEdit>
 #include <QAction>
+#include <QFileDialog>
 
 TeamSelectWidget::TeamSelectWidget(QWidget *parent)
     : QWidget{parent}, numberPokemon(0)
@@ -13,12 +14,9 @@ TeamSelectWidget::TeamSelectWidget(QWidget *parent)
     QHBoxLayout* primaryRow = new QHBoxLayout(this);
     QVBoxLayout* primaryColumn = new QVBoxLayout();
     QHBoxLayout* buttonRow = new QHBoxLayout();
-    QHBoxLayout* saveRow = new QHBoxLayout();
     QHBoxLayout* searchRow = new QHBoxLayout();
     QPushButton* exitButton = new QPushButton("Ritorna al menu", this);
     exitButton->setFixedWidth(150);
-    _fileName = new QLineEdit(this);
-    QLabel* saveLabel = new QLabel("Nome del file: ", this);
     _saveButton = new QPushButton("Salva su file", this);
     QLabel* searchLabel = new QLabel("Nome del pokemon da cercare: ", this);
     _nameToSearch = new QLineEdit("Nome pokemon", this);
@@ -32,15 +30,8 @@ TeamSelectWidget::TeamSelectWidget(QWidget *parent)
     primaryRow->addStretch(1);
     primaryRow->addLayout(primaryColumn);
     primaryRow->addStretch(1);
-    primaryColumn->addStretch(1);
-    saveRow->addWidget(saveLabel);
-    saveRow->addSpacing(10);
-    saveRow->addWidget(_fileName);
-    saveRow->addStretch(1);
-    saveRow->addWidget(_saveButton);
-    primaryColumn->addWidget(exitButton, 0, Qt::AlignRight);
+    primaryColumn->addStretch(1);    primaryColumn->addWidget(exitButton, 0, Qt::AlignRight);
     primaryColumn->addSpacing(30);
-    primaryColumn->addLayout(saveRow);
     searchRow->addWidget(searchLabel);
     searchRow->addStretch(1);
     searchRow->addWidget(_nameToSearch);
@@ -52,6 +43,8 @@ TeamSelectWidget::TeamSelectWidget(QWidget *parent)
     buttonRow->addWidget(_modifyButton);
     buttonRow->addWidget(_removeButton);
     primaryColumn->addLayout(buttonRow);
+    primaryColumn->addSpacing(10);
+    primaryColumn->addWidget(_saveButton, 0, Qt::AlignCenter);
     primaryColumn->addStretch(1);
 
     //Definiamo lo shortcut per salvare
@@ -78,14 +71,14 @@ TeamSelectWidget::~TeamSelectWidget() {
     }
 }
 
-void TeamSelectWidget::setFile(const std::string& fileName) {
+void TeamSelectWidget::setFile(const QString& fileName) {
     for (auto it=_pokemonList.begin(); it != _pokemonList.end(); ++it) {
         delete *it;
     }
     _pokemonList.erase();
     numberPokemon = 0;
     if(fileName != "") {
-        QFile file(QString::fromStdString(fileName));
+        QFile file(fileName);
         if(file.open(QIODevice::ReadOnly)) {
             QDataStream in (&file);
             in.setVersion(QDataStream::Qt_6_2);
@@ -99,9 +92,9 @@ void TeamSelectWidget::setFile(const std::string& fileName) {
         } else {
             QMessageBox::information(this, "Error", "Impossibile aprire il file");
         }
-        _fileName->setText(QString::fromStdString(fileName));
+        _fileName = fileName;
     } else {
-        _fileName->setText("Nome file");
+        _fileName = "";
     }
 }
 
@@ -162,20 +155,27 @@ void TeamSelectWidget::findPokemon() {
 }
 
 void TeamSelectWidget::saveFile() {
-    if(!_fileName->text().contains(".pokemon")) {
-        _fileName->setText(_fileName->text() + ".pokemon");
-    }
-    QFile file(_fileName->text());
-    if(file.open(QIODevice::WriteOnly)) {
-        QDataStream out(&file);
-        out.setVersion(QDataStream::Qt_6_2);
-        for (auto it = _pokemonList.begin(); it != _pokemonList.end(); ++it) {
-            out << **it;
-        }
-        file.close();
-        QMessageBox::information(this, "Pokemon", "File salvato!");
+    QString dir = QFileDialog::getSaveFileName(
+        this,
+        tr("Save file"),
+        _fileName == "" ? QDir::currentPath() : _fileName,
+        tr("Pokemon save files (*.pokemon)"));
+    if(dir.isEmpty()) {
+        QMessageBox::information(this, "Percorso non valido", "Seleziona un percorso di salvataggio valido!");
     } else {
-        QMessageBox::information(this, "Pokemon", "File NON salvato!");
+        _fileName = dir;
+        QFile file(_fileName);
+        if(file.open(QIODevice::WriteOnly)) {
+            QDataStream out(&file);
+            out.setVersion(QDataStream::Qt_6_2);
+            for (auto it = _pokemonList.begin(); it != _pokemonList.end(); ++it) {
+                out << **it;
+            }
+            file.close();
+            QMessageBox::information(this, "Pokemon", "File salvato!");
+        } else {
+            QMessageBox::information(this, "Pokemon", "File NON salvato!");
+        }
     }
 }
 
