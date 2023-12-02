@@ -155,11 +155,20 @@ void TeamSelectWidget::findPokemon() {
 }
 
 void TeamSelectWidget::saveFile() {
-    QString dir = QFileDialog::getSaveFileName(
-        this,
-        tr("Save file"),
-        _fileName == "" ? QDir::currentPath() : _fileName,
-        tr("Pokemon save files (*.pokemon)"));
+    if(_pokemonList.isEmpty()){
+        QMessageBox::information(this, "Nessun pokemon", "Per poter salvare devi prima aggiungere un pokemon!");
+        return;
+    }
+    QString dir("");
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::FileMode::AnyFile);
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setDefaultSuffix("pokemon");
+    dialog.setNameFilter("Pokemon save files (*.pokemon)");
+
+    if (dialog.exec() == QDialog::Accepted) {
+        dir = dialog.selectedFiles().constFirst();
+    }
     if(dir.isEmpty()) {
         QMessageBox::information(this, "Percorso non valido", "Seleziona un percorso di salvataggio valido!");
     } else {

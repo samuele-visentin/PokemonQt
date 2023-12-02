@@ -22,6 +22,7 @@ public:
     void insertFront(const T& elem);
     void insertBack(const T& elem);
     void erase();
+    bool isEmpty() const;
     class const_iterator {
         friend class List<T>;
     private:
@@ -150,6 +151,11 @@ void List<T>::erase() {
         destroy(first);
         first = last = nullptr;
     }
+}
+
+template<class T>
+bool List<T>::isEmpty() const {
+    return first == nullptr;
 }
 
 template<class T>
